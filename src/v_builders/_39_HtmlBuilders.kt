@@ -19,6 +19,18 @@ fun todoTask39(): Nothing = TODO(
     documentation = doc39()
 )
 
+fun html(build: Html.() -> Unit): Html {
+    val html = Html()
+    html.build()
+    return html
+}
+
+fun table(build: Table.() -> Unit): Table {
+    val table = Table()
+    table.build()
+    return table
+}
+
 fun renderProductTable(): String {
     return html {
         table {
@@ -34,7 +46,19 @@ fun renderProductTable(): String {
                 }
             }
             val products = getProducts()
-            todoTask39()
+            for ((index, value) in products.withIndex()) {
+                tr {
+                    td(color = getCellColor(index, 0)) {
+                        text(value.description)
+                    }
+                    td(color = getCellColor(index, 1)) {
+                        text(value.price)
+                    }
+                    td(color = getCellColor(index, 2)) {
+                        text(value.popularity)
+                    }
+                }
+            }
         }
     }.toString()
 }
